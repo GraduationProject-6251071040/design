@@ -2,6 +2,8 @@
 
 ## 🧠 Xây dựng hệ thống phát hiện giao dịch bất thường bằng trí tuệ nhân tạo kết hợp lưu vết xác thực bằng Blockchain với kiến trúc dữ liệu đa mô hình
 
+![Alt text](./image.png)
+
 ## 🎯 Mục tiêu đề tài
 
 - Phát hiện các giao dịch bất thường/gian lận dựa trên mô hình AI học không giám sát (_unsupervised learning_).
