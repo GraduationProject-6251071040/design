@@ -1,94 +1,76 @@
-# 🚀 Đề tài tốt nghiệp
+🚀 Đề tài tốt nghiệp
+Hệ thống phát hiện giao dịch bất thường kết hợp lưu vết xác thực trên IPFS với kiến trúc dữ liệu đa mô hình
 
-## 🧠 Xây dựng hệ thống phát hiện giao dịch bất thường bằng trí tuệ nhân tạo kết hợp lưu vết xác thực bằng Blockchain với kiến trúc dữ liệu đa mô hình
+🎯 Mục tiêu
+Phát hiện giao dịch bất thường/gian lận bằng mô hình AI không giám sát:
 
-![Alt text](./image.png)
+Isolation Forest → anomaly score + nhãn
 
-## 🎯 Mục tiêu đề tài
+AutoEncoder → reconstruction error + nhãn + latent embedding
 
-- Phát hiện các giao dịch bất thường/gian lận dựa trên mô hình AI học không giám sát (_unsupervised learning_).
-- Lưu vết kết quả phân tích một cách **minh bạch, không thể sửa đổi** bằng cách lưu **hash log** lên **Blockchain Ethereum (testnet)**.
-- Cung cấp **giao diện trực quan** để người dùng quản trị, tra cứu, xác minh kết quả và tìm kiếm hành vi tương đồng bằng **truy vấn vector**.
+Lưu vết kết quả (hash log) lên IPFS
 
-## 🧩 Các chức năng chính của hệ thống
+Cung cấp Dashboard real-time để:
 
-- ✅ Phát hiện giao dịch bất thường
-- ✅ Sinh vector embedding và truy vấn tương đồng
-- ✅ Lưu vết kết quả AI bằng Blockchain
-- ✅ Quản lý dữ liệu và log phân tích
-- ✅ Giao diện web theo dõi cảnh báo và xác minh blockchain
-- ✅ Tra cứu hành vi tương tự
-- ✅ Hệ thống cảnh báo real-time
-- ✅ Quản lý người dùng, phân quyền
+Quản trị, tra cứu, xác minh kết quả
 
-## 💡 Các công nghệ chính trong dự án
+Cảnh báo khi phát hiện bất thường
 
-- **Programming**: JavaScript, TypeScript, Python, Solidity
-- **Frontend**: Next.js, TailwindCSS, Shadcn/UI
-- **Backend**: NestJS (REST, GraphQL, WebSocket, gRPC)
-- **AI/ML**: scikit-learn, PyTorch, AutoEncoder, Isolation Forest
-- **Blockchain**: Solidity Smart Contract, Hardhat, Sepolia Testnet, ethers.js
-- **Databases**: MongoDB, PostgreSQL, Qdrant (VectorDB), ElasticSearch, Valkey (Redis-compatible)
-- **DevOps**: Docker (Kubernetes), Nginx, GitHub Actions, Cloudflare
+🧩 Chức năng chính
+Anomaly Detection
 
-## 🔄 Luồng dữ liệu tổng thể (Data Flow)
+Tính anomaly score & nhãn (bình thường / bất thường)
 
-### 1. 🟢 Giao dịch người dùng gửi lên (Entry Point)
+IPFS Logging
 
-- Giao dịch được gửi từ frontend hoặc hệ thống bên ngoài đến **API Gateway** qua:
-  - `GraphQL` (NestJS xử lý)
+Tạo hash log (ID, timestamp, label) → lưu lên Pinata → nhận CID
 
-### 2. ⚙️ Xử lý giao dịch tại Backend (NestJS)
+Real-time Alerts & Logs
 
-- Nhận request → validate → lưu vào `MongoDB` (log tạm thời - raw data)
-- Chuyển giao dịch sang **AI Service** để phân tích bất thường
+Redis Pub/Sub → WebSocket → Frontend
 
-### 3. 🧠 AI Service phân tích bất thường
+User & Permission Management
 
-- AI model (Isolation Forest / AutoEncoder) xử lý và trả về:
-  - `Anomaly score`
-  - `Label` (bất thường / bình thường)
-  - `Vector embedding`
+Auth, RBAC
 
-### 4. 💾 Lưu trữ dữ liệu và kết quả AI
+💡 Công nghệ
+Frontend: Next.js, TailwindCSS, Shadcn/UI
 
-| Dữ liệu            | Lưu trữ tại       | Mục đích                              |
-| ------------------ | ----------------- | ------------------------------------- |
-| Giao dịch gốc      | MongoDB           | Lưu raw transaction                   |
-| Thống kê/phân tích | PostgreSQL        | Dashboard, báo cáo                    |
-| Vector embedding   | Qdrant (VectorDB) | Tìm kiếm hành vi tương đồng           |
-| Log hệ thống       | ElasticSearch     | Truy vấn log, hiển thị theo thời gian |
-| Cache / realtime   | Redis (Valkey)    | Tạm lưu & gửi cảnh báo realtime       |
+Backend: NestJS (REST/gRPC), WebSocket, Kafka
 
-### 5. 🔐 Lưu vết kết quả lên Blockchain
+AI/ML: Isolation Forest (scikit-learn), AutoEncoder (PyTorch)
 
-- Backend tạo `hash` từ kết quả AI (ID + timestamp + label)
-- Gửi lên **Smart Contract trên Sepolia testnet**
-- Trả về `transaction hash` để xác minh kết quả trên blockchain
+Decentralized Storage: IPFS (Pinata)
 
-### 6. 🚨 Gửi cảnh báo nếu phát hiện bất thường
+Databases: MongoDB (raw data), Redis (cache/alert)
 
-- Nếu phát hiện bất thường:
-  - Gửi sự kiện qua `Redis Pub/Sub`
-  - Frontend (WebSocket) nhận cảnh báo realtime
-  - Ghi log cảnh báo vào ElasticSearch
+DevOps & Infra: Docker, Nginx, GitHub Actions, Cloudflare, AWS
 
-### 7. 📊 Người dùng xem dashboard (Next.js)
+🔄 Luồng dữ liệu tổng quát
+Ingress
 
-- Người dùng truy cập frontend để:
-  - Xem danh sách giao dịch
-  - Xem chi tiết kết quả phân tích
-  - Tra cứu giao dịch tương đồng (truy vấn Qdrant)
-  - Xác minh kết quả AI bằng `ethers.js` trên blockchain
+Frontend / Socket Gateway nhận giao dịch (REST/WebSocket)
 
-// các fildes để train data
-{
-"tx_id": "TX0001",
-"amount": 1250.00,
-"timestamp": "2025-06-05T22:20:00Z",
-"type": "withdraw"
-}
-admin-datn
-N7pRQSA3rjbJCcia
+Validation & Lưu raw
 
-mongodb+srv://admin-datn:N7pRQSA3rjbJCcia@cluster0.ocwhkn6.mongodb.net/
+NestJS Validate → MongoDB
+
+AI Service
+
+Preprocessing → Isolation Forest → AutoEncoder → lấy anomaly score, reconstruction error, latent embedding
+
+Lưu trữ & Cảnh báo
+
+Raw data → MongoDB
+
+Embedding → VectorDB (Qdrant) – nếu cần truy vấn tương đồng
+
+Hash log → IPFS → nhận CID
+
+Nếu anomaly → Redis Pub/Sub → WebSocket → Frontend
+
+Dashboard
+
+Hiển thị giao dịch, score/error, CID, tìm tương đồng
+
+Auth & RBAC
