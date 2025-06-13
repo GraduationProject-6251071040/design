@@ -80,3 +80,15 @@
   - Xem chi tiết kết quả phân tích
   - Tra cứu giao dịch tương đồng (truy vấn Qdrant)
   - Xác minh kết quả AI bằng `ethers.js` trên blockchain
+
+// các fildes để train data
+{
+"tx_id": "TX0001",
+"amount": 1250.00,
+"timestamp": "2025-06-05T22:20:00Z",
+"type": "withdraw"
+}
+admin-datn
+N7pRQSA3rjbJCcia
+
+mongodb+srv://admin-datn:N7pRQSA3rjbJCcia@cluster0.ocwhkn6.mongodb.net/

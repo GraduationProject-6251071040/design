@@ -1,0 +1,47 @@
+🚀 Đề tài tốt nghiệp:
+Xây dựng hệ thống phát hiện giao dịch bất thường bằng trí tuệ nhân tạo kết hợp lưu vết xác thực bằng Blockchain với kiến trúc dữ liệu đa mô hình.
+
+🎯 Mục tiêu:
+- Phát hiện giao dịch bất thường/gian lận với mô hình AI không giám sát (Isolation Forest + AutoEncoder).
+- Sinh vector embedding để truy vấn hành vi tương đồng (VectorDB).
+- Lưu vết kết quả (hash log) lên Blockchain Ethereum Sepolia testnet.
+- Cung cấp giao diện trực quan (Next.js) để quản trị, tra cứu, xác minh và cảnh báo real-time.
+
+🧩 Chức năng chính:
+1. Phát hiện bất thường (Anomaly Detection)
+2. Sinh và lưu trữ embedding (Qdrant)
+3. Lưu vết kết quả AI lên blockchain
+4. Quản lý log & alert real-time
+5. Giao diện dashboard & truy vấn
+6. Quản lý người dùng & phân quyền
+
+💡 Công nghệ:
+- Frontend: Next.js, TailwindCSS, Shadcn/UI
+- Backend: NestJS (REST, GraphQL, WebSocket, gRPC)
+- AI/ML:
+  • **Isolation Forest** (scikit-learn, n_estimators=200, contamination=0.01, n_jobs=-1)
+  • **AutoEncoder** (PyTorch, encoder 𝑑→64→32→16, decoder đối xứng, AdamW + CosineAnnealingLR, mixed-precision, batch_size=512, multi-GPU/DataParallel)
+  • Sinh **anomaly score**, **label** (IF) và **reconstruction error** (AE), threshold 95th percentile
+  • Xuất **vector embedding** (encoder output) cho truy vấn vector tương đồng
+- Blockchain: Solidity + Hardhat + ethers.js (Sepolia testnet)
+- Cơ sở dữ liệu: MongoDB (raw), PostgreSQL (báo cáo), Qdrant (VectorDB), ElasticSearch (log), Redis/Valkey (cache & pub/sub)
+- DevOps: Docker (K8s), Nginx, GitHub Actions, Cloudflare
+
+🔄 Luồng dữ liệu:
+1. **Entry**: Frontend/API Gateway (GraphQL) nhận transaction.
+2. **Backend**: NestJS validate → lưu raw (MongoDB) → chuyển sang AI Service.
+3. **AI Service**:
+   - _Isolation Forest_ → anomaly score + binary label
+   - _AutoEncoder_ → reconstruction error + binary label
+   - _Encoder output_ → vector embedding
+4. **Lưu trữ**:
+   - Raw data → MongoDB
+   - Metrics/report → PostgreSQL
+   - Embedding → Qdrant
+   - Log phân tích → ElasticSearch
+   - Cache + alert → Redis Pub/Sub
+5. **Blockchain**: Tạo hash (ID, timestamp, label) → gửi Smart Contract → nhận transaction hash.
+6. **Alert**: Nếu anomaly → pub/sub → WebSocket → frontend real-time alert
+7. **Dashboard**: Frontend xem danh sách giao dịch, chi tiết phân tích, xác minh blockchain, tìm hành vi tương đồng.
+8. **Quản lý**: User/auth/role → bảo mật & phân quyền.
+

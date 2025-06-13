@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="WwKGGHSKPtE0rxQt0NqL" name="Page-1">
-        <mxGraphModel dx="2248" dy="1927" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2248" dy="1765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -134,17 +134,8 @@
                         <mxPoint x="380" y="-70" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="116" value="Up Testnet" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="116" value="Up Block chain local" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="620" y="-50" width="120" height="80" as="geometry"/>
-                </mxCell>
-                <mxCell id="120" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="116" target="121" edge="1">
-                    <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="210" y="140" as="sourcePoint"/>
-                        <mxPoint x="790" y="120" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="121" value="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
-                    <mxGeometry x="810" y="-55" width="50" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="127" value="" style="edgeStyle=none;html=1;exitX=0.723;exitY=0.977;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="107" target="116" edge="1">
                     <mxGeometry relative="1" as="geometry">
